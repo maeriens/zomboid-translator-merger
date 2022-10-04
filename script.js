@@ -29,7 +29,7 @@ function handleFormSubmit(event) {
 async function handleMerge(filename, uploadedText) {
   const baseText = await fileFetch(filename)
 
-  if(baseText.length === 0) return;
+  if (baseText.length === 0) return;
 
   let newText = '';
   let missingTranslations = '';
@@ -52,7 +52,9 @@ async function handleMerge(filename, uploadedText) {
     }
   })
 
-  document.querySelector(`#result`).value = missingTranslations.trim();
+  document.querySelector(`#result`).value = missingTranslations.length
+    ? missingTranslations.trim()
+    : 'NO MISSING TRANSLATIONS';
 
   download(`MERGED_${filename}`, newText.trim())
 }
@@ -87,7 +89,7 @@ async function fileFetch(filename) {
 
   try {
     const response = await fetch(new Request(fileUrl))
-    if(response.status != 200) {
+    if (response.status != 200) {
       throw new Error()
     }
     const text = await response.text()
