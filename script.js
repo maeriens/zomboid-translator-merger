@@ -52,9 +52,16 @@ async function handleMerge(filename, uploadedText) {
     }
   })
 
-  document.querySelector(`#result`).value = missingTranslations.length
+  const hasTranslations = missingTranslations.length
+
+  document.querySelector(`#result`).value = hasTranslations
     ? missingTranslations.trim()
     : 'NO MISSING TRANSLATIONS';
+
+  if (!hasTranslations) {
+    const text = "No missing translations found. Do you still want to download the merged file?";
+    if (!confirm(text)) return;
+  }
 
   download(`MERGED_${filename}`, newText.trim())
 }
