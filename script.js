@@ -52,7 +52,7 @@ async function handleMerge(filename, uploadedText) {
 
   document.querySelector(`#result`).value = missingTranslations.trim();
 
-  download(`MERGED_${filename}.txt`, newText.trim())
+  download(`MERGED_${filename}`, newText.trim())
 }
 
 /**
