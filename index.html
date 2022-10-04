@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700">
+    <link rel="stylesheet" href="style.css">
+    <title>Zomboid Tranlsation Helper</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Project Zomboid Missing Translations Helper</h1>
+    </div>
+    <main class="main">
+
+        <p class="info">
+            A helper that grabs an uploaded file, searches the English counterpart and downloads a merge between both,
+            keeping the uploaded files translated lines but also adding the untranslated ones. The missing translations
+            will also be listed in the text field below.
+            <br />
+            <br />
+            For example, uploading the <b>UI_AR.txt</b> file will search for the <b>UI_EN.txt</b> file in the
+            <a href="https://github.com/TheIndieStone/ProjectZomboidTranslations" class="link">translations github
+                repository</a>,
+            prompt the user to download the merge file (named <b>MERGED_UI_AR.txt</b>) and then will show untranslated
+            fields.
+            <br />
+            <br />
+            <u><b>NOTE</b></u>: files inside each city folder, the Survival Guide file and the language.txt file are not supported 
+            for direct translation.
+        </p>
+        <form id="form">
+            <label>Upload file to compare to:</label>
+            <input id="compare" class="input" type="file" accept=".txt" />
+            <button class="">Get merged translation</button>
+        </form>
+        <p for="result">Missing Translations:</p>
+        <div>
+            <textarea id="result"></textarea>
+        </div>
+    </main>
+</body>
+<script src="script.js"></script>
+
+</html>
