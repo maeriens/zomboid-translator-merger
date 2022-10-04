@@ -29,6 +29,8 @@ function handleFormSubmit(event) {
 async function handleMerge(filename, uploadedText) {
   const baseText = await fileFetch(filename)
 
+  if(baseText.length === 0) return;
+
   let newText = '';
   let missingTranslations = '';
 
@@ -79,11 +81,15 @@ function download(filename, text) {
  * @returns the EN text of the uploaded file
  */
 async function fileFetch(filename) {
-  const enFileName = filename.replace(/_\D{2}/, '_EN')
-  const fileUrl = `https://raw.githubusercontent.com/TheIndieStone/ProjectZomboidTranslations/master/EN/${enFileName}`
+  const [filepart] = filename.split('.')
+  const enFileName = filepart.replace(/_\D+/, '_EN')
+  const fileUrl = `https://raw.githubusercontent.com/TheIndieStone/ProjectZomboidTranslations/master/EN/${enFileName}.txt`
 
   try {
     const response = await fetch(new Request(fileUrl))
+    if(response.status != 200) {
+      throw new Error()
+    }
     const text = await response.text()
 
     return text;
