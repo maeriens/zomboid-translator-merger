@@ -35,15 +35,21 @@ async function handleMerge(filename, uploadedText) {
   let missingTranslations = '';
 
   const compareText = uploadedText.split("\n");
+  let hasDifferentIndex = false;
 
-  baseText.split("\n").forEach(engLine => {
+  baseText.split("\n").forEach((engLine, originalIndex) => {
     if (!engLine.includes('"')) {
       return newText += ('\n' + engLine)
     }
 
     const [property] = engLine.trim().split("=", 1);
-  
-    const translatedValue = compareText.find(t => t.trim().includes(property))
+
+    const translatedValue = compareText.find((t, findIndex) => {
+      if (t.trim().includes(property)) {
+        hasDifferentIndex = findIndex !== originalIndex
+        return true;
+      }
+    })
 
     if (translatedValue) {
       return newText += ('\n' + translatedValue)
@@ -60,7 +66,11 @@ async function handleMerge(filename, uploadedText) {
     : 'NO MISSING TRANSLATIONS';
 
   if (!hasTranslations) {
-    const text = "No missing translations found. Do you still want to download the merged file?";
+    let text = "No missing translations found. ";
+    if(hasDifferentIndex) {
+      text += "However, items in different indexes than the EN file found. "
+    }
+    text += "Do you still want to download the merged file with the EN sorting?"
     if (!confirm(text)) return;
   }
 
@@ -91,8 +101,8 @@ function download(filename, text) {
  * @returns the EN text of the uploaded file
  */
 async function fileFetch(filename) {
-  const [filepart] = filename.split('.')
-  const enFileName = filepart.replace(/_\D+/, '_EN')
+  const toReplace = filename.split('_').pop()
+  const enFileName = filename.replace(toReplace, 'EN')
   const fileUrl = `https://raw.githubusercontent.com/TheIndieStone/ProjectZomboidTranslations/master/EN/${enFileName}.txt`
 
   try {
