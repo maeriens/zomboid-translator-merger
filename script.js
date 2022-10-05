@@ -41,8 +41,9 @@ async function handleMerge(filename, uploadedText) {
       return newText += ('\n' + engLine)
     }
 
-    const [property] = engLine.split("=", 1);
-    const translatedValue = compareText.find(t => t.includes(property))
+    const [property] = engLine.trim().split("=", 1);
+  
+    const translatedValue = compareText.find(t => t.trim().includes(property))
 
     if (translatedValue) {
       return newText += ('\n' + translatedValue)
