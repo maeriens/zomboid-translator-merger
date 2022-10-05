@@ -54,7 +54,7 @@ async function handleMerge(filename, uploadedText) {
     if (translatedValue) {
       return newText += ('\n' + translatedValue)
     } else {
-      missingTranslations += ('\n' + engLine)
+      missingTranslations += ('\n' + engLine.trim())
       return newText += ('\n' + engLine)
     }
   })
