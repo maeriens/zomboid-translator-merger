@@ -23,8 +23,8 @@ function handleFormSubmit(event) {
  * Receives the name and the content of the uploaded file, so it searches the EN
  * version of such file and compares both texts
  * 
- * @param {*} filename the uploaded file name
- * @param {*} uploadedText the uploaded text contents
+ * @param {string} filename the uploaded file name
+ * @param {string} uploadedText the uploaded text contents
  */
 async function handleMerge(filename, uploadedText) {
   const baseText = await fileFetch(filename)
@@ -67,7 +67,7 @@ async function handleMerge(filename, uploadedText) {
 
   if (!hasTranslations) {
     let text = "No missing translations found. ";
-    if(hasDifferentIndex) {
+    if (hasDifferentIndex) {
       text += "However, items in different indexes than the EN file found. "
     }
     text += "Do you still want to download the merged file with the EN sorting?"

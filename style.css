@@ -1,5 +1,6 @@
 * {
     font-family: 'Inter', 'Courier New', Courier, monospace;
+    box-sizing: border-box;
 }
 
 html {
@@ -20,6 +21,11 @@ body {
 
 .header h1 {
     margin: 0;
+}
+
+.header a,
+.header a:visited {
+    color: beige;
 }
 
 .main {
@@ -53,8 +59,7 @@ body {
 
 .main textarea {
     width: 80%;
-    height: 50vh;
-    resize: none;
+    height: 45vh;
     margin-bottom: 1rem;
 }
 
