@@ -1,11 +1,22 @@
+// Selectors
+const form = document.getElementById('form')
+const fileInput = document.getElementById('compare')
+const resultTextarea = document.getElementById('result')
+const submitButton = document.getElementById('submit')
+
 // Add submit to the form
-document.getElementById('form').addEventListener('submit', handleFormSubmit);
+fileInput.addEventListener('change', handleFileSelect);
+form.addEventListener('submit', handleFormSubmit);
+
+// Enables or disables the submit button based on the file
+function handleFileSelect(event) {
+  submitButton.disabled = !event.target.files[0]
+}
 
 // On Form submit
 function handleFormSubmit(event) {
   event.preventDefault();
 
-  const fileInput = document.querySelector('input[type=file]');
   const file = fileInput.files[0];
 
   const reader = new FileReader();
@@ -61,7 +72,7 @@ async function handleMerge(filename, uploadedText) {
 
   const hasTranslations = missingTranslations.length
 
-  document.querySelector(`#result`).value = hasTranslations
+  resultTextarea.value = hasTranslations
     ? missingTranslations.trim()
     : 'NO MISSING TRANSLATIONS';
 

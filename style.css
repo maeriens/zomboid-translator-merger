@@ -23,6 +23,10 @@ body {
     margin: 0;
 }
 
+.header span {
+    font-size: 0.8rem;
+}
+
 .header a,
 .header a:visited {
     color: beige;
